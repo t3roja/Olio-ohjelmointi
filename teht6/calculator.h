@@ -57,7 +57,6 @@ private:
     short operand=9;
 
     void numberClickedHandler(int num);
-    void clearAndEnterClickHandler();
     void addSubMulDivClickHandler(short calc);
     void resetLineEdits();
 };

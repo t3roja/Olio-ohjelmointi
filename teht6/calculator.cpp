@@ -30,11 +30,6 @@ void calculator::numberClickedHandler(int num)
     }
 }
 
-void calculator::clearAndEnterClickHandler()
-{
-
-}
-
 void calculator::addSubMulDivClickHandler(short calc)
 {
     operand = calc; //0 on +, 1 on -, 2 on *, 3 on /
@@ -48,6 +43,7 @@ void calculator::resetLineEdits()
     ui->num2->setText(number2);
     ui->txtResult->setText("");
     state = 0;
+    operand=9;
 }
 
 void calculator::on_btnN1_clicked()
@@ -132,14 +128,16 @@ void calculator::on_btnEnter_clicked()
         break;
     case 3:
         result = one / two;
+
     default:
-        clearAndEnterClickHandler();
+        resetLineEdits();
         break;
     }
     QString output;
     output.setNum(result);
     ui->txtResult->setText(output);
     state = 9;
+    operand= 9;
 }
 
 
