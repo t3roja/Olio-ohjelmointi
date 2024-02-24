@@ -19,6 +19,8 @@ private slots:
     void on_btnCount_clicked();
     void on_btnReset_clicked();
 
+    void on_btnCalc_clicked();
+
 private:
     int x=0;
     Ui::MainWindow *ui;

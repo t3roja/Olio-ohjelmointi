@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "calculator.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -30,5 +31,13 @@ void MainWindow::on_btnReset_clicked()
     QString s = QString::number(x);
     ui->txtCount->setText(s);
 
+}
+
+
+void MainWindow::on_btnCalc_clicked()
+{
+    qDebug()<<"Open calculator button pressed";
+    calculator *objectCalculator = new calculator(this);
+    objectCalculator->show();
 }
 
