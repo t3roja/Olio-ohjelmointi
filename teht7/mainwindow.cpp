@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     pQTimer = new QTimer();
     ui->labelMain->setText("Select time limit");
+    ui->prgBarOne->setValue(0);
+    ui->prgBarTwo->setValue(0);
 }
 
 MainWindow::~MainWindow()
@@ -20,16 +22,22 @@ MainWindow::~MainWindow()
 void MainWindow::timeout()
 {
     x++;
+    if(playerOneTime > 0 && playerTwoTime > 0){
     qDebug()<< x << " Sekuntia kulunut";
+    updateProgressBar();
+    }
+    else if (playerOneTime == 0){
+    ui->labelMain->setText("Player 2 won!");
+    pQTimer->stop();
+    currentPlayer = 0;
+    }
+    else if (playerTwoTime == 0){
+    ui->labelMain->setText("Player 1 won!");
+    pQTimer->stop();
+    currentPlayer = 0;
+    }
 
-    if (currentPlayer == 1){
-    ui->prgBarOne->setValue(gameTime -= 1);
-    }
-    else if (currentPlayer == 2){
-    ui->prgBarTwo->setValue(gameTime -= 1);
-    }
 }
-
 
 void MainWindow::on_btnSwitchPlayerOne_clicked()
 {
@@ -46,7 +54,7 @@ void MainWindow::on_btnSwitchPlayerTwo_clicked()
 
 void MainWindow::on_btn120Seconds_clicked()
 {
-    if (currentPlayer == 9 || currentPlayer == 9){ // jos pelaaja 0 tai 9 eli ei kumpikaan on vuorossa voidaan säätää aikarajaa
+    if (currentPlayer == 0 || currentPlayer == 9){ // jos pelaaja 0 tai 9 eli ei kumpikaan on vuorossa voidaan säätää aikarajaa
         gameTime = 120;
         currentPlayer = 9;
         ui->labelMain->setText("120 second timelimit game");
@@ -72,11 +80,16 @@ void MainWindow::on_btnStartGame_clicked()
 
     currentPlayer = 1;
 
-    ui->prgBarOne->setValue(gameTime);
-    ui->prgBarOne->setRange(0,gameTime);
+    playerOneTime=gameTime;
+    playerTwoTime=gameTime;
 
-    ui->prgBarTwo->setValue(gameTime);
+    ui->prgBarOne->setRange(0,gameTime);
+    ui->prgBarOne->setValue(playerOneTime);
+
     ui->prgBarTwo->setRange(0,gameTime);
+    ui->prgBarTwo->setValue(playerTwoTime);
+
+    ui->labelMain->setText("Game ongoing");
     }
 }
 
@@ -88,5 +101,17 @@ void MainWindow::on_btnStopGame_clicked()
 
     ui->prgBarOne->setValue(0);
     ui->prgBarTwo->setValue(0);
+}
+
+void MainWindow::updateProgressBar()
+{
+
+    if (currentPlayer == 1){
+    ui->prgBarOne->setValue(playerOneTime -= 1);
+    }
+    else if (currentPlayer == 2){
+    ui->prgBarTwo->setValue(playerTwoTime -= 1);
+    }
+
 }
 
