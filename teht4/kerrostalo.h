@@ -2,25 +2,22 @@
 #define KERROSTALO_H
 
 #include <iostream>
-#include "kerros.h"
 #include "katutaso.h"
+#include "kerros.h"
 
 using namespace std;
 
-class kerrostalo
-{
+class kerrostalo {
 public:
-
     kerrostalo();
     ~kerrostalo();
 
-    double laskeKulutus(double);
+    double laskeKulutus(double h);
 
 private:
-
-    katutaso eka;
-    kerros toka;
-    kerros kolmas;
+    katutaso eka;   // Ground floor
+    kerros toka;    // Second floor
+    kerros kolmas;  // Third floor
 };
 
-#endif // KERROSTALO_H
+#endif
